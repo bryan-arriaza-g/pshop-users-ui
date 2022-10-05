@@ -12,6 +12,7 @@ RUN npm run build:production
 # === DISPATCHING STATIC ===
 # Bundle static assets with nginx
 FROM nginx:1.21.0-alpine as production
+USER root
 ENV NODE_ENV production
 # Copy built assets from `builder` image
 COPY --from=builder /app/config/nginx.conf /etc/nginx/conf.d/default.conf
