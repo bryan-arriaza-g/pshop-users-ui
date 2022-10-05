@@ -9,4 +9,13 @@ export const useGetListUsers = () => {
   ];
 };
 
+export const useCreateUser = () => {
+  return [
+    async user => {
+      const createdUser = await apiServer.user.createUsers(user);
+      return createdUser;
+    },
+  ];
+};
+
 export default useGetListUsers;

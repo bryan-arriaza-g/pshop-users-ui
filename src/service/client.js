@@ -5,4 +5,9 @@ export const get = async apiUrl => {
   return response.data;
 };
 
+export const post = async (apiUrl, data) => {
+  const response = await axios.post(apiUrl, data);
+  return response.data;
+};
+
 export default { get };

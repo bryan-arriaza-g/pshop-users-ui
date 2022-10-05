@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Button, Space, Table } from 'antd';
 import { useGetListUsers } from '../../hooks/useUser';
 import { getStatusRender } from '../../common';
+import UserModal from './user';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [getUsers] = useGetListUsers();
 
   useEffect(() => {
@@ -55,9 +57,16 @@ const Users = () => {
     },
   ];
 
+  const handleUserModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <div>
-      <Button type="primary">Agregar</Button>
+      <UserModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <Button type="primary" onClick={() => handleUserModal()}>
+        Agregar
+      </Button>
       <Table key="table-users" columns={columns} dataSource={users} rowKey="id" />
     </div>
   );

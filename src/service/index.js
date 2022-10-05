@@ -1,7 +1,9 @@
-import user from './users';
+import * as user from './users';
 
 export const apiServer = {
-  user,
+  user: {
+    ...user,
+  },
 };
 
 export default apiServer;
