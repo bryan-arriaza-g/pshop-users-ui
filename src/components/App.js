@@ -1,28 +1,13 @@
 import React from 'react';
 import { Switch, Route, Router } from 'react-router-dom';
-import logo from './logo.svg';
+import Users from '../pages/users';
 import './index.css';
-import './App.css';
-
-function MyApp() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello from Users</p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
 function App({ history }) {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/" component={MyApp} />
+        <Route path="/" component={Users} />
       </Switch>
     </Router>
   );

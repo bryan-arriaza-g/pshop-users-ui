@@ -1,12 +1,17 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  resolve: {
+    modules: [path.resolve(__dirname, './src'), 'node_modules'],
+    extensions: ['.mjs', '.web.js', '.js', '.json', '.web.jsx', '.jsx', '.ts', '.tsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.m?js$/,
+        test: /\.js$|jsx/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',

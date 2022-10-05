@@ -13,6 +13,11 @@
   "plugins": ["react", "prettier"],
   "rules": {
     "linebreak-style": 0,
+    "import/no-unresolved": "off",
+    "arrow-parens": "off",
+    "object-curly-newline": "off",
+    "react/function-component-definition": "off",
+    "arrow-body-style": "off",
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [
       1,
