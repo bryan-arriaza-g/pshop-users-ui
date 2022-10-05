@@ -10,7 +10,7 @@ function App({ history }) {
     <Provider store={store}>
       <Router history={history}>
         <Switch>
-          <Route path="/" exact component={Users} />
+          <Route path="/" component={Users} />
         </Switch>
       </Router>
     </Provider>
