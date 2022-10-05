@@ -25,6 +25,8 @@
       {
         "endOfLine": "auto"
       }
-    ]
+    ],
+    // React
+    "react/prop-types": "off"
   }
 }
