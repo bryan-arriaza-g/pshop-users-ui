@@ -1,8 +1,10 @@
 import React from 'react';
+import { Switch, Route, Router } from 'react-router-dom';
 import logo from './logo.svg';
+import './index.css';
 import './App.css';
 
-function App() {
+function MyApp() {
   return (
     <div className="App">
       <header className="App-header">
@@ -13,6 +15,16 @@ function App() {
         </a>
       </header>
     </div>
+  );
+}
+
+function App({ history }) {
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route path="/" component={MyApp} />
+      </Switch>
+    </Router>
   );
 }
 
