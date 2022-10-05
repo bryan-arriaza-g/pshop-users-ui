@@ -20,4 +20,6 @@ export const ROLES = {
   user: 'USER',
 };
 
+export const DELETE_MSG = 'Are you sure to delete this element ?';
+
 export default { getStatusRender };

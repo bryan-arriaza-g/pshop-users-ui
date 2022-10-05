@@ -1,22 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Space, Table } from 'antd';
-import { useGetListUsers } from '../../hooks/useUser';
-import { getStatusRender } from '../../common';
+import { Button, Space, Table, Popconfirm } from 'antd';
+import { useGetListUsers, useListUsersSelector, useDeleteUser } from '../../hooks/useUser';
+import { getStatusRender, DELETE_MSG } from '../../common';
+import { successNotification } from '../notification';
 import UserModal from './user';
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [getUsers] = useGetListUsers();
+  const [deleteUser] = useDeleteUser();
+  const users = useListUsersSelector();
 
   useEffect(() => {
     const getData = async () => {
       const response = await getUsers();
-      setUsers(response);
       return response;
     };
     getData();
   }, []);
+
+  const handleUserModal = user => {
+    setSelectedUser(user);
+    setIsModalOpen(true);
+  };
+
+  const handleDelete = async user => {
+    const response = await deleteUser(user.id);
+    successNotification(response.message);
+    await getUsers();
+  };
 
   const columns = [
     {
@@ -48,23 +61,31 @@ const Users = () => {
     {
       title: 'Action',
       key: 'action',
-      render: () => (
+      render: user => (
         <Space size="middle">
-          <Button type="link">Edit</Button>
-          <Button type="link">Delete</Button>
+          <Button type="link" onClick={() => handleUserModal(user)}>
+            Edit
+          </Button>
+          <Popconfirm
+            placement="rightTop"
+            title={DELETE_MSG}
+            onConfirm={() => {
+              handleDelete(user);
+            }}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="link">Delete</Button>
+          </Popconfirm>
         </Space>
       ),
     },
   ];
 
-  const handleUserModal = () => {
-    setIsModalOpen(true);
-  };
-
   return (
     <div>
-      <UserModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
-      <Button type="primary" onClick={() => handleUserModal()}>
+      <UserModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} selectedUser={selectedUser} />
+      <Button type="primary" onClick={() => handleUserModal(null)}>
         Agregar
       </Button>
       <Table key="table-users" columns={columns} dataSource={users} rowKey="id" />

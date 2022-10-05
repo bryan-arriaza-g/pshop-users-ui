@@ -1,15 +1,19 @@
 import React from 'react';
 import { Switch, Route, Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from '../ducks/store';
 import Users from '../pages/users';
 // import 'antd/dist/antd.css';
 
 function App({ history }) {
   return (
-    <Router history={history}>
-      <Switch>
-        <Route path="/" component={Users} />
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Router history={history}>
+        <Switch>
+          <Route path="/" component={Users} />
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 

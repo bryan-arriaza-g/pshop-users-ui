@@ -1,13 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Form, Input, Checkbox, Select } from 'antd';
 import { successNotification } from '../../notification';
 import { getRequiredRule, ROLES } from '../../../common';
-import { useCreateUser } from '../../../hooks/useUser';
+import { useGetListUsers, useCreateUser, useUpdateUser } from '../../../hooks/useUser';
 
-const UserModal = ({ isModalOpen, setIsModalOpen }) => {
+const UserModal = ({ isModalOpen, setIsModalOpen, selectedUser }) => {
   const [form] = Form.useForm();
+  const [getUsers] = useGetListUsers();
   const [createUser] = useCreateUser();
+  const [updateUser] = useUpdateUser();
   const { Option } = Select;
+
+  useEffect(() => {
+    if (isModalOpen && selectedUser) {
+      form.setFieldsValue({ ...selectedUser });
+    }
+  }, [isModalOpen]);
 
   const handleCancel = () => {
     form.resetFields();
@@ -18,7 +26,13 @@ const UserModal = ({ isModalOpen, setIsModalOpen }) => {
     try {
       await form.validateFields();
       const formValues = form.getFieldsValue();
-      const response = await createUser(formValues);
+      let response;
+      if (!selectedUser) {
+        response = await createUser(formValues);
+      } else {
+        response = await updateUser({ ...selectedUser, ...formValues });
+      }
+      await getUsers();
       successNotification(response.message);
       form.resetFields();
       setIsModalOpen(false);

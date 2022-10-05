@@ -10,4 +10,14 @@ export const post = async (apiUrl, data) => {
   return response.data;
 };
 
+export const put = async (apiUrl, data) => {
+  const response = await axios.put(apiUrl, data);
+  return response.data;
+};
+
+export const remove = async apiUrl => {
+  const response = await axios.delete(apiUrl);
+  return response.data;
+};
+
 export default { get };
