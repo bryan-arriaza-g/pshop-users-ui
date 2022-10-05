@@ -5,11 +5,13 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const commonConfig = require('./webpack.common');
 const packageJson = require('../package.json');
 
+const PORT = 3001;
+
 const prodConfig = {
   mode: 'production',
   output: {
-    filename: '[name].[contenthash].js',
-    publicPath: '/',
+    filename: 'static/js/[name].[contenthash].js',
+    publicPath: `http://localhost:${PORT}/`,
   },
   plugins: [
     new ModuleFederationPlugin({

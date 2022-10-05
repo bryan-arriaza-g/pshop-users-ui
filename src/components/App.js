@@ -3,14 +3,14 @@ import { Switch, Route, Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../ducks/store';
 import Users from '../pages/users';
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 
 function App({ history }) {
   return (
     <Provider store={store}>
       <Router history={history}>
         <Switch>
-          <Route path="/" component={Users} />
+          <Route path="/" exact component={Users} />
         </Switch>
       </Router>
     </Provider>
