@@ -3,7 +3,7 @@ import { Switch, Route, Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from '../ducks/store';
 import Users from '../pages/users';
-// import 'antd/dist/antd.css';
+import 'antd/dist/antd.css';
 
 function App({ history }) {
   return (

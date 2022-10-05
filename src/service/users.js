@@ -1,6 +1,7 @@
 import { get, post, put, remove } from './client';
 
-const API_URL = 'http://localhost:4000/api/v1/users';
+const API_SERVICE = process.env.USERS_API;
+const API_URL = `${API_SERVICE}/api/v1/users`;
 
 export const getUsers = async () => {
   const users = await get(API_URL);
