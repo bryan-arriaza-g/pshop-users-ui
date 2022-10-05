@@ -4,7 +4,7 @@ export const useGetListUsers = () => {
   return [
     async () => {
       const users = await apiServer.user.getUsers();
-      return users;
+      return users.content;
     },
   ];
 };
