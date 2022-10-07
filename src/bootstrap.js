@@ -5,14 +5,14 @@ import { createMemoryHistory, createBrowserHistory } from 'history';
 import App from './components/App';
 
 // Mount function to start up the app
-export const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
+export const mount = (el, { onNavigate, defaultHistory, initialPath, isolate }) => {
   const history = defaultHistory || createMemoryHistory({ initialEntries: [initialPath] });
 
   if (onNavigate) {
     history.listen(onNavigate);
   }
 
-  ReactDOM.render(<App history={history} />, el);
+  ReactDOM.render(<App history={history} isolate={isolate !== false} />, el);
 
   return {
     onParentNavigate({ pathname: nextPathname }) {
@@ -24,9 +24,11 @@ export const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
   };
 };
 
-const devRoot = document.querySelector('#users-mfe');
-if (devRoot) {
-  mount(devRoot, { defaultHistory: createBrowserHistory() });
+if (process.env.NODE_ENV === 'development') {
+  const devRoot = document.querySelector('#users-mfe');
+  if (devRoot) {
+    mount(devRoot, { defaultHistory: createBrowserHistory() });
+  }
 }
 
 export default mount;
